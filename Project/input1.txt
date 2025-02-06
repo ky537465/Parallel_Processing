@@ -1,0 +1,28 @@
+3
+House Cat
+There are 6 hairless cat breeds.
+Animalia
+Chordata
+Mammalia
+Carnivora
+Felidae
+Felis
+Felis catus
+Dog
+There are around 450 globally recognized dog breeds.
+Animalia
+Chordata
+Mammalia
+Carnivora
+Canidae
+Canis
+Canis lupus familiaris
+Leopard Gecko
+The black night leopard gecko morph is one of the most expensive leopard gecko morphs.
+Animalia
+Chordata
+Reptilia
+Squamata
+Eublepharidae
+Eublepharis
+Eublepharis macularius
