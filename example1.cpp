@@ -6,12 +6,12 @@
 // Chapter 1 Example: Dining Philosophers.
 using namespace std;
 
+int num_philosophers = 6;
 mutex chopsticks[5];
-int n = 6;
 
 void philosopher(int id) {
     int left = id;
-    int right = ((id + 1) % n);
+    int right = ((id + 1) % num_philosophers);
 
     cout << "Right: " << right << " Left: " << left << "\n";
 
@@ -32,7 +32,7 @@ void philosopher(int id) {
 int main() {
     vector<thread> philosophers;
     
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < num_philosophers; i++) {
         philosophers.emplace_back(philosopher, i);
     }
 
