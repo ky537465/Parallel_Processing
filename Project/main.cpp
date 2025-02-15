@@ -16,43 +16,27 @@ void read_animals(ifstream& inputFile) {
     vector<vector<string>> animals_list;
     int num_animals;
 
-    if (getline(inputFile, line)) {
-        num_animals = stoi(line);
-    }
+    if (getline(inputFile, line)) {num_animals = stoi(line);}
 
     for (int i = 0; i < num_animals; i++) {
-        if (getline(inputFile, line)) {
-            name = line;
-        }
-        if (getline(inputFile, line)) {
-            fact = line;
-        }
-        if (getline(inputFile, line)) {
-            k = line;
-        }
-        if (getline(inputFile, line)) {
-            p = line;
-        }
-        if (getline(inputFile, line)) {
-            c = line;
-        }
-        if (getline(inputFile, line)) {
-            o = line;
-        }
-        if (getline(inputFile, line)) {
-            f = line;
-        }
-        if (getline(inputFile, line)) {
-            g = line;
-        }
-        if (getline(inputFile, line)) {
-            s = line;
-        }
+        if (getline(inputFile, line)) {name = line;}
+        if (getline(inputFile, line)) {fact = line;}
+        if (getline(inputFile, line)) {k = line;}
+        if (getline(inputFile, line)) {p = line;}
+        if (getline(inputFile, line)) {c = line;}
+        if (getline(inputFile, line)) {o = line;}
+        if (getline(inputFile, line)) {f = line;}
+        if (getline(inputFile, line)) {g = line;}
+        if (getline(inputFile, line)) {s = line;}
         Animal animal(name, fact, k, p, c, o, f, g, s);
         animal.print_animal();
     }
 }
+// +=====================================================+
+//                      For File Input.
+// +=====================================================+
 
+/*
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         cerr << "Error: No file provided.";
@@ -66,4 +50,29 @@ int main(int argc, char* argv[]) {
     }
 
     read_animals(inputFile);
+}*/
+
+// +=====================================================+
+//                     For NO File Input.
+// +=====================================================+
+
+int main() {
+    vector<Animal> animals = {
+        {"Lion", "King of the Jungle", "Animalia", "Chordata", "Mammalia", "Carnivora", "Felidae", "Panthera", "P. leo"},
+        {"Shark", "Has multiple rows of teeth", "Animalia", "Chordata", "Chondrichthyes", "Selachimorpha", "Carcharhinidae", "Carcharhinus", "C. carcharias"},
+        {"Eagle", "Has powerful vision", "Animalia", "Chordata", "Aves", "Accipitriformes", "Accipitridae", "Aquila", "A. chrysaetos"},
+        {"Frog", "Can jump long distances", "Random", "Chordata", "Amphibia", "Anura", "Ranidae", "Rana", "R. temporaria"},
+        {"Octopus", "Has eight arms", "Animalia", "Chordata", "Cephalopoda", "Octopoda", "Octopodidae", "Octopus", "O. vulgaris"}
+    };
+
+    int num_threads = 2;
+    Animal::kingdom_sort(animals, num_threads);
+
+    cout << "Sorted Animals by Kingdom:\n";
+    for (const auto& animal : animals) {
+        animal.print_animal();
+        cout << "----------------------\n";
+    }
+
+    return 0;
 }
