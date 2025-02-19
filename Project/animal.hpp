@@ -7,7 +7,7 @@
 using namespace std;
 
 class Animal {
-    private:
+    public:
         string name, fact, k, p, c, o, f, g, s;
     public:
         Animal(string name, string fact, string k, string p, string c, string o, string f, string g, string s)
