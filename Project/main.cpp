@@ -103,7 +103,6 @@ void print_tree(TaxonomyNode* root, int dept = 0) {
 //                      For File Input.
 // +=====================================================+
 
-/*
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         cerr << "Error: No file provided.";
@@ -117,12 +116,12 @@ int main(int argc, char* argv[]) {
     }
 
     read_animals(inputFile);
-}*/
+}
 
 // +=====================================================+
 //                     For NO File Input.
 // +=====================================================+
-
+/*
 int main() {
     vector<Animal> animals = {
         {"Lion", "King of the Jungle", "Animalia", "Chordata", "Mammalia", "Carnivora", "Felidae", "Panthera", "P. leo"},
@@ -151,3 +150,4 @@ int main() {
     print_tree(root);
     return 0;
 }
+*/
