@@ -7,6 +7,7 @@
 using namespace std;
 
 class Animal {
+    // Each animal from the input file is turned into one of these.
     public:
         string name, fact, k, p, c, o, f, g, s;
     public:
@@ -35,7 +36,7 @@ class Animal {
             cout << "Species: " << s << "\n";
         }
 
-        // Uses built-in sort function that runs in 0(n log n) time.
+        // Uses a built-in sort function that runs in 0(n log n) time.
         static void sort_chunk(vector<Animal>& animals, size_t start, size_t end) {
             sort(animals.begin() + start, animals.begin() + end, [](const Animal& a, const Animal& b) {
                 if (a.get_kingdom() != b.get_kingdom()) return a.get_kingdom() < b.get_kingdom();
@@ -48,7 +49,7 @@ class Animal {
             });
         }
 
-        // Merges the two sorted chunks together.
+        // Merges the two sorted animal chunks together. Similar to merge sort.
         static void merge_chunks(vector<Animal>& animals, size_t start1, size_t end1, size_t start2, size_t end2) {
             vector<Animal> merged;
             size_t i = start1, j = start2;
@@ -69,6 +70,7 @@ class Animal {
             }
         }
 
+        // Sorts the animals in alphabetical order by kingdom, phylum, etc...
         static bool compare_animals(const Animal& a, const Animal& b) {
             if (a.get_kingdom() != b.get_kingdom()) return a.get_kingdom() < b.get_kingdom();
             if (a.get_phylum() != b.get_phylum()) return a.get_phylum() < b.get_phylum();
@@ -80,7 +82,7 @@ class Animal {
         }
 
         // Using threading to sort the animals by kingdom.
-        static void kingdom_sort(vector<Animal>& animals, int num_threads) {
+        static void threading_sort(vector<Animal>& animals, int num_threads) {
             size_t chunk_size = animals.size() / num_threads;
             vector<thread> threads;
 
@@ -104,5 +106,10 @@ class Animal {
                 size_t end2 = (i == num_threads - 1) ? animals.size() : start2 + chunk_size;
                 merge_chunks(animals, start1, end1, start2, end2);
             }
+        }
+
+        // Sorting the animals easily without threading.
+        static void sort_animals(vector<Animal>& animals) {
+            sort(animals.begin(), animals.end(), compare_animals);
         }
 };

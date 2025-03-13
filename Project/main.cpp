@@ -7,31 +7,51 @@
 #include <vector>
 #include <map>
 #include <sstream>
+#include <chrono>
 
 #include "animal.hpp"
-
 using namespace std;
+int num_animals = 0;
 
-void read_animals(ifstream& inputFile) {
+// Reads the animals from the file.
+vector<Animal> read_animals(ifstream& inputFile) {
     string line, name, fact, k, p, c, o, f, g, s;
-    vector<vector<string>> animals_list;
-    int num_animals;
+    string num;
+    vector<Animal> animals_list;
 
-    if (getline(inputFile, line)) {num_animals = stoi(line);}
+    if (!getline(inputFile, num)) {
+        cerr << "Error: Input file is empty or invalid.\n";
+        return animals_list;
+    }
+
+    try {
+        num_animals = stoi(num); // Convert the string to an integer
+    } catch (const invalid_argument& e) {
+        cerr << "Error: Invalid number of animals.\n";
+        return animals_list;
+    }
+
 
     for (int i = 0; i < num_animals; i++) {
-        if (getline(inputFile, line)) {name = line;}
-        if (getline(inputFile, line)) {fact = line;}
-        if (getline(inputFile, line)) {k = line;}
-        if (getline(inputFile, line)) {p = line;}
-        if (getline(inputFile, line)) {c = line;}
-        if (getline(inputFile, line)) {o = line;}
-        if (getline(inputFile, line)) {f = line;}
-        if (getline(inputFile, line)) {g = line;}
-        if (getline(inputFile, line)) {s = line;}
+        if (!getline(inputFile, name)) break;
+        if (!getline(inputFile, fact)) break;
+        if (!getline(inputFile, k)) break;
+        if (!getline(inputFile, p)) break;
+        if (!getline(inputFile, c)) break;
+        if (!getline(inputFile, o)) break;
+        if (!getline(inputFile, f)) break;
+        if (!getline(inputFile, g)) break;
+        if (!getline(inputFile, s)) break;
+
         Animal animal(name, fact, k, p, c, o, f, g, s);
-        animal.print_animal();
+        animals_list.push_back(animal);
     }
+
+    if (animals_list.size() != num_animals) {
+        cerr << "Warning: Number of animals does not match total.\n";
+    }
+
+    return animals_list;
 }
 
 struct TaxonomyNode {
@@ -99,10 +119,6 @@ void print_tree(TaxonomyNode* root, int dept = 0) {
     }
 }
 
-// +=====================================================+
-//                      For File Input.
-// +=====================================================+
-
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         cerr << "Error: No file provided.";
@@ -115,39 +131,27 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
-    read_animals(inputFile);
-}
+    // Variables and functions
+    vector<Animal> animals = read_animals(inputFile);
+    vector<Animal> animalsCopy;     // this is for the 2nd sorting function.
+    animalsCopy = animals;
 
-// +=====================================================+
-//                     For NO File Input.
-// +=====================================================+
-/*
-int main() {
-    vector<Animal> animals = {
-        {"Lion", "King of the Jungle", "Animalia", "Chordata", "Mammalia", "Carnivora", "Felidae", "Panthera", "P. leo"},
-        {"Shark", "Has multiple rows of teeth", "Animalia", "Chordata", "Chondrichthyes", "Selachimorpha", "Carcharhinidae", "Carcharhinus", "C. carcharias"},
-        {"Eagle", "Has powerful vision", "Animalia", "Chordata", "Aves", "Accipitriformes", "Accipitridae", "Aquila", "A. chrysaetos"},
-        {"Frog", "Can jump long distances", "Random", "Chordata", "Amphibia", "Anura", "Ranidae", "Rana", "R. temporaria"},
-        {"Octopus", "Has eight arms", "Animalia", "Chordata", "Cephalopoda", "Octopoda", "Octopodidae", "Octopus", "O. vulgaris"}
-    };
+    // Time threading
+    auto start_thread = chrono::high_resolution_clock::now();
+    Animal::threading_sort(animals, num_animals);
+    auto end_thread = chrono::high_resolution_clock::now();
+    chrono::duration<double> thread_total = end_thread - start_thread;
 
-    int num_threads = 2;
-    Animal::kingdom_sort(animals, num_threads);
+    // Time non-threading
+    auto start_non_thread = chrono::high_resolution_clock::now();
+    Animal::sort_animals(animalsCopy);
+    auto end_non_thread = chrono::high_resolution_clock::now();
+    chrono::duration<double> non_thread_total = end_non_thread - start_non_thread;
 
-    //cout << "Sorted Animals by Kingdom:\n";
-    //for (const auto& animal : animals) {
-    //    animal.print_animal();
-    //    cout << "----------------------\n";
-    //}
-
-    TaxonomyNode* root = new TaxonomyNode("Root");      // TODO: change root to animal name.
-    for (const auto& animal : animals) {
-        cout << animal.name << " Fact: " << animal.fact << endl;
-        insert_into_tree(root, animal);
+    for (const auto& animal : animalsCopy) {
+        animal.print_animal();
     }
 
-    cout << "\nTaxonomy Tree:\n";
-    print_tree(root);
-    return 0;
+    cout << "Total time for threading: " << thread_total.count() << " seconds\n";
+    cout << "Total time for non-threading: " << non_thread_total.count() << " seconds\n";
 }
-*/
