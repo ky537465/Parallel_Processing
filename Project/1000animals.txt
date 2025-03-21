@@ -908,7 +908,6 @@ Artiodactyla
 Bovidae  
 Taurotragus  
 Taurotragus oryx
-
 African Lion
 Lions are the only cats that live in social groups.
 Animalia
@@ -1818,7 +1817,6 @@ Artiodactyla
 Bovidae  
 Taurotragus  
 Taurotragus oryx
-
 African Lion
 Lions are the only cats that live in social groups.
 Animalia
@@ -2728,7 +2726,6 @@ Artiodactyla
 Bovidae  
 Taurotragus  
 Taurotragus oryx
-
 African Lion
 Lions are the only cats that live in social groups.
 Animalia
@@ -3638,7 +3635,6 @@ Artiodactyla
 Bovidae  
 Taurotragus  
 Taurotragus oryx
-
 African Lion
 Lions are the only cats that live in social groups.
 Animalia
@@ -4548,7 +4544,6 @@ Artiodactyla
 Bovidae  
 Taurotragus  
 Taurotragus oryx
-
 African Lion
 Lions are the only cats that live in social groups.
 Animalia
@@ -5458,7 +5453,6 @@ Artiodactyla
 Bovidae  
 Taurotragus  
 Taurotragus oryx
-
 African Lion
 Lions are the only cats that live in social groups.
 Animalia
@@ -6368,7 +6362,6 @@ Artiodactyla
 Bovidae  
 Taurotragus  
 Taurotragus oryx
-
 African Lion
 Lions are the only cats that live in social groups.
 Animalia
@@ -7278,7 +7271,6 @@ Artiodactyla
 Bovidae  
 Taurotragus  
 Taurotragus oryx
-
 African Lion
 Lions are the only cats that live in social groups.
 Animalia
@@ -8188,7 +8180,6 @@ Artiodactyla
 Bovidae  
 Taurotragus  
 Taurotragus oryx
-
 African Lion
 Lions are the only cats that live in social groups.
 Animalia

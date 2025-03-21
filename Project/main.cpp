@@ -48,7 +48,7 @@ vector<Animal> read_animals(ifstream& inputFile) {
     }
 
     if (animals_list.size() != num_animals) {
-        cerr << "Warning: Number of animals does not match total.\n";
+        cerr << "Warning: Number of animals does not match total. \n" << animals_list.size();
     }
 
     return animals_list;
@@ -138,7 +138,7 @@ int main(int argc, char* argv[]) {
 
     // Time threading
     auto start_thread = chrono::high_resolution_clock::now();
-    Animal::threading_sort(animals, num_animals);
+    Animal::threading_sort(animals, thread::hardware_concurrency());
     auto end_thread = chrono::high_resolution_clock::now();
     chrono::duration<double> thread_total = end_thread - start_thread;
 
@@ -147,10 +147,6 @@ int main(int argc, char* argv[]) {
     Animal::sort_animals(animalsCopy);
     auto end_non_thread = chrono::high_resolution_clock::now();
     chrono::duration<double> non_thread_total = end_non_thread - start_non_thread;
-
-    for (const auto& animal : animalsCopy) {
-        animal.print_animal();
-    }
 
     cout << "Total time for threading: " << thread_total.count() << " seconds\n";
     cout << "Total time for non-threading: " << non_thread_total.count() << " seconds\n";
