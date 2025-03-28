@@ -23,7 +23,7 @@ vector<Animal> read_animals(ifstream& inputFile) {
     }
 
     try {
-        num_animals = stoi(num); // Convert the string to an integer
+        num_animals = stoi(num);
     } catch (const invalid_argument& e) {
         cerr << "Error: Invalid number of animals.\n";
         return animals_list;

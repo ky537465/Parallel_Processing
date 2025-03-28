@@ -19,7 +19,7 @@ vector<Animal> read_animals(ifstream& inputFile) {
     }
 
     try {
-        num_animals = stoi(num); // Convert the string to an integer
+        num_animals = stoi(num);
     } catch (const invalid_argument& e) {
         cerr << "Error: Invalid number of animals.\n";
         return animals_list;
@@ -41,6 +41,7 @@ vector<Animal> read_animals(ifstream& inputFile) {
         animals_list.push_back(animal);
     }
 
+    // Warning in case the number of animals is not correct.
     if (animals_list.size() != num_animals) {
         cerr << "Warning: Number of animals does not match total. \n" << animals_list.size();
     }
@@ -48,16 +49,16 @@ vector<Animal> read_animals(ifstream& inputFile) {
     return animals_list;
 }
 
-// Structure to represent taxonomy tree
+// Structure to represent taxonomy tree as a binary tree.
 struct TaxonomyNode {
     string name;
     map<string, TaxonomyNode*> children;
-    vector<Animal> animals;  // Store animals at species level
+    vector<Animal> animals;
 
     TaxonomyNode(string name) : name(name) {}
 };
 
-// Function to insert animal into the tree
+// Inserts animal into tree.
 void insert_into_tree(TaxonomyNode* root, const Animal& animal) {
     TaxonomyNode* current = root;
 
@@ -70,24 +71,24 @@ void insert_into_tree(TaxonomyNode* root, const Animal& animal) {
         current = current->children[level];
     }
 
-    // Store the animal at the species level
+    // Stores the animal at the species level.
     current->animals.push_back(animal);
 }
 
-// Recursive function to generate DOT representation
+// Generates DOT representation.
 void write_dot(TaxonomyNode* node, ofstream& file) {
     for (auto& child : node->children) {
         file << "\"" << node->name << "\" -> \"" << child.second->name << "\";\n";
         write_dot(child.second, file);
     }
 
-    // Add animals at the species level
+    // Adds animal to correct species level.
     for (const auto& animal : node->animals) {
         file << "\"" << node->name << "\" -> \"" << animal.name << " (" << animal.fact << ")\" [color=blue];\n";
     }
 }
 
-// Function to generate DOT file
+// Generates the DOT file
 void generate_dot_file(TaxonomyNode* root, const string& filename) {
     ofstream file(filename);
     if (!file.is_open()) {
@@ -104,6 +105,7 @@ void generate_dot_file(TaxonomyNode* root, const string& filename) {
     cout << "DOT file generated: " << filename << endl;
 }
 
+// Main
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         cerr << "Error: No file provided.\n";
@@ -125,10 +127,10 @@ int main(int argc, char* argv[]) {
         insert_into_tree(root, animal);
     }
 
-    // Generate the DOT file
+    // Generates the DOT file
     generate_dot_file(root, "taxonomy_tree.dot");
 
-    // Suggest command to render the tree
+    // Suggests the correct command to generate the tree next:
     cout << "To generate an image, use Graphviz: dot -Tpng taxonomy_tree.dot -o taxonomy_tree.png\n";
 
     return 0;
