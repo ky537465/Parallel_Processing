@@ -18,7 +18,7 @@ This file is in charge of running the graphical representation aspect of the pro
 
 source myenv/bin/activate
 make sure pip is updated...
-pip install graphviz
+sudo apt-get update && sudo apt-get install -y graphviz
 
 g++ -std=c++11 -pthread tree.cpp -o output
 ./taxonomy_tree 10animals.txt
